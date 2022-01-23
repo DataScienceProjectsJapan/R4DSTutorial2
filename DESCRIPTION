@@ -1,0 +1,24 @@
+Package: R4DSTutorial2nd
+Title: Tutorial on R4DS
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "First",
+           family = "Last",
+           role = c("aut", "cre"),
+           email = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Tutorial on R4DS.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    learnr
+Imports: 
+    nycflights13 (>= 1.0.2),
+    gradethis (>= 0.2.3.9001)
+Remotes:  
+    rstudio-education/gradethis,
+    hadley/nycflights13
