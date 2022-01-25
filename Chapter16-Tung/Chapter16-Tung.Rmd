@@ -23,7 +23,7 @@ library(nycflights13)
 library(lubridate)
 ```
 
-###### Tung Dam (TD)
+###### DAM Le Thanh Tung 12418143 (TD)
 
 ## Section 16.1
 
