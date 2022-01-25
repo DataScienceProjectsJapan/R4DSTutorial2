@@ -158,5 +158,3 @@ ggplot(aes(arrival_time, color = carrier)) +
 ```{r 16-2-4_Challenging_MS-check}
 gradethis::grade_this_code()
 ```
-
-#try to push
