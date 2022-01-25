@@ -1,0 +1,270 @@
+---
+title: "Tutorial"
+output: 
+  learnr::tutorial:
+    css: css/style.css
+    theme: cerulean
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+
+library(gradethis)
+
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+
+library(nycflights13)
+
+library(lubridate)
+```
+
+###### Tung Dam (TD)
+
+## Section 16.1
+
+### 16.1 Easy TD
+
+1. Run this code to understand how lubridate can help us convert datetime data.
+
+```{r 16-1EasyTD, exercise=TRUE, eval=FALSE}
+?lubridate
+```
+
+2. Answer the following simple quiz
+
+```{r 16-1EasyTD-quiz1}
+quiz(
+  question("Which year in the following is a leap year?",
+    answer("2018"),
+    answer("2019"),
+    answer("2020", correct = TRUE),
+    answer("2021")
+  )
+)
+```
+
+### 16.1 Intermediate TD
+
+1. Which package should be used to simplify datetime conversion in R?
+
+```{r 16-1IntermediateTD-quiz1}
+quiz(
+  question("Which package should be used to simplify datetime conversion in R?",
+    answer("lubricate"),
+    answer("lubridate",  correct = TRUE),
+    answer("POSIX"),
+    answer("tidyverse")
+  )
+)
+```
+
+2. Answer the following short quiz
+
+```{r 16-1IntermediateTD-quiz2}
+quiz(
+  question("Is lubridate part of tidyverse?",
+    answer("No",  correct = TRUE),
+    answer("Yes")
+  )
+)
+```
+
+### 16.1 Challenging TD
+
+Complete the following function that accepts a year (integer) as an input, and print out whether that year is a leap year, name the function `isLeapYear`.
+
+```{r 16-1ChallengingTD, exercise=TRUE, exercise.eval=FALSE}
+isLeapYear <- function(year) {
+  leapYear <- 
+  return(leapYear)
+}
+print(isLeapYear(2020))
+print(isLeapYear(2022))
+```
+
+```{r 16-1ChallengingTD-hint}
+isLeapYear <- function(year) {
+  leapYear <- ((year %% 4) == 0)
+  return(leapYear)
+}
+```
+
+```{r 16-1ChallengingTD-solution}
+isLeapYear <- function(year) {
+  leapYear <- ((year %% 4) == 0)
+  return(leapYear)
+}
+```
+
+```{r 16-1ChallengingTD-check}
+gradethis::grade_this_code()
+```
+
+## Section 16.2.1
+
+### 16.2.1 Easy TD
+
+1. Write the code to show today's date (date only)
+
+```{r 16-2-1EasyTD, exercise=TRUE, exercise.eval=FALSE}
+
+```
+
+```{r 16-2-1EasyTD-hint}
+today()
+```
+
+```{r 16-2-1EasyTD-solution}
+today()
+```
+
+```{r 16-2-1EasyTD-check}
+gradethis::grade_this_code()
+```
+
+2. Write the code to show the current time (full time)
+
+```{r 16-2-1EasyTD2, exercise=TRUE, exercise.eval=FALSE}
+
+```
+
+```{r 16-2-1EasyTD2-hint}
+now()
+```
+
+```{r 16-2-1EasyTD2-solution}
+now()
+```
+
+```{r 16-2-1EasyTD2-check}
+gradethis::grade_this_code()
+```
+
+
+### 16.2.1 Intermediate TD
+
+1. Write the code to parse out (read) datetime data from the following string "2022-01-25"
+
+```{r 16-2-1IntermediateTD1, exercise=TRUE, exercise.eval=FALSE}
+
+```
+
+```{r 16-2-1IntermediateTD1-hint}
+"use y for year, m for month, and d for day"
+```
+
+```{r 16-2-1IntermediateTD1-solution}
+ymd("2022-01-25")
+```
+
+```{r 16-2-1IntermediateTD1-check}
+gradethis::grade_this_code()
+```
+
+2. Answer the following short quiz
+
+```{r 16-2-1IntermediateTD-quiz1}
+quiz(
+  question("Which is a valid funciton to convert datetime from a string?",
+    answer("ymd"),
+    answer("hms"),
+    answer("ydm_hms"),
+    answer("All of the above", correct = TRUE)
+  )
+)
+```
+
+
+### 16.2.1 Challenging TD
+Like the questions above, write the code to parse out the string "31-Dec-2021 20:11:40" and supply "NZ" as the timezone
+
+```{r 16-2-1ChallengingTD, exercise=TRUE, exercise.eval=FALSE}
+
+```
+
+```{r 16-2-1ChallengingTD-hint}
+"use h for hour, m for minute, s for second, and use tz=\"NZ\" for the timezone argument"
+```
+
+```{r 16-2-1ChallengingTD-solution}
+ymd_hms("2021-12-31 20:11:40", tz="NZ")
+```
+
+```{r 16-2-1ChallengingTD-check}
+gradethis::grade_this_code()
+```
+
+## Section 16.2.2
+
+### 16.2.2 Easy TD
+
+
+
+### 16.2.2 Intermediate TD
+
+### 16.2.2 Challenging TD
+
+## Section 16.2.3
+
+### 16.2.3 Easy TD
+
+### 16.2.3 Intermediate TD
+
+### 16.2.3 Challenging TD
+
+### Exercise with Code
+
+*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
+
+Now write a function that adds any two numbers and then call it:
+
+```{r add-function, exercise=TRUE, exercise.lines = 5}
+add <- function() {
+  
+}
+```
+
+## Topic 2
+
+### Exercise with Hint
+
+*Here's an exercise where the chunk is pre-evaulated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
+
+Modify the following code to limit the number of rows printed to 5:
+
+```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
+mtcars
+```
+
+```{r print-limit-hint}
+head(mtcars)
+```
+
+### Quiz
+
+*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
+
+Some questions to verify that you understand the purposes of various base and recommended R packages:
+
+```{r quiz}
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  ),
+  question("Which of the R packages listed below are used to create plots?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("grid", correct = TRUE)
+  )
+)
+```
+
