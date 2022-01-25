@@ -121,7 +121,7 @@ gradethis::grade_this_code()
 
 ### 16.2.4 Challenging MS
 
-Try to understand the command of creating the new function called `make_arrival` and complete the command. Run the command of creating new function at first. Then we are going to analyze the arrival information of the flights with destination to `Atlanta (“ATL”)`. Create a datetime for the arrival time of these flight and name it into `arrival_time`. Select the column of `carrier`, `flight` and `arrival_time`. At last, try to use `ggplot()` and `geom_freqpoly()` to make a plot of `arrival_time`(binwidth = 86400). Colored the flight by `carrier`.
+Try to understand the command of creating the new function called `make_arrival` and complete the command. Run the command of creating new function at first. Then we are going to analyze the arrival information of the flights with destination to `Atlanta (“ATL”)`. Create a datetime for the arrival time of these flight and name it into `arrival_time`. Select the column of `carrier`, `flight` and `arrival_time`. At last, try to use `ggplot()` and `geom_freqpoly()` to make a plot of `arrival_time`(use binwidth = 86400). Colored the flight by `carrier`.
 
 ```{r 16-2-4_Challenging_MS, exercise=TRUE, exercise.eval=TRUE}
 
@@ -135,7 +135,6 @@ Try to understand the command of creating the new function called `make_arrival`
   <- function(year, month, day, time) {
   make_   (year, month, day, time       , time       )
   } 
-#Run the code above at first then complete the code below.
 
 filter(flights, !is.na(dep_time), !is.na(arr_time), dest == " ") 
   mutate(  = make_arrival(year, month,day,  )) 
@@ -147,7 +146,8 @@ ggplot(aes())
 ```{r 16-2-4_Challenging_MS-solution}
 make_arrival <- function(year, month, day, time) {
   make_datetime(year, month, day, time %/% 100, time %% 100)
-} %>%
+} 
+
 filter(flights, !is.na(dep_time), !is.na(arr_time), dest == "ATL") %>%
   mutate(arrival_time = make_arrival(year, month,day, arr_time)) %>%
   select(carrier, flight, arrival_time) %>%
