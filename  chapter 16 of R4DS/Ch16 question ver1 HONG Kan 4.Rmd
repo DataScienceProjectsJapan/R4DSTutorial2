@@ -1,0 +1,173 @@
+---
+title: "Tidyverse Tutorial: R4DS Ch 16"
+output: 
+  learnr::tutorial:
+    css: css/style.css
+    theme: cerulean
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+
+library(learnr)
+
+library(gradethis)
+
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+
+library(nycflights13)
+
+library(lubridate)
+```
+
+
+##  Section 16.2.4
+
+### 16.2.4 Easy HK
+
+Exercise 1 HK
+
+By using the lubridate, correct the following code so as to automatically work out the format of the date (why is it wrong?):
+
+```{r 16-2-4EASYHK, exercise=TRUE, exercise.lines = 5}
+ymd ("January:31st:2017")  
+
+```
+
+### 16.2.4 Easy HK
+
+Exercise 2 HK
+
+```{r quiz16-2-4EASYHK}
+quiz(
+  question("What does the second m present in ymd_hms?",
+    answer("month"),
+    answer("meter"),
+    answer("minute", correct = TRUE),
+    answer("mile")
+  )
+)
+```
+
+### 16.2.4 Intermediate HK
+
+Exercise 1 HK
+
+Use the as_date function to show January 25, 2022:
+
+```{r 16-2-4IntermediaHK, exercise=TRUE, exercise.eval=TRUE}
+
+```
+
+```{r 16-2-4IntermediaHK-hint}
+as_date(365 *  +  )
+```
+
+```{r 16-2-4IntermediaHK-solution}
+as_date(365 *52+ 37)
+```
+
+```{r 16-2-4IntermediaHK-check}
+gradethis::grade_this_code()
+```
+
+### 16.2.4 Intermediate HK 
+
+Exercise 2 HK
+
+Use the as_datetime function to show 1970-01-25 23:00:00 UTC:
+
+```{r 16-2-4Intermediate2HK, exercise=TRUE, exercise.eval=TRUE}
+
+```
+
+```{r 16-2-4Intermediate2HK-hint}
+as_datetime(60 * 60 * )
+```
+
+```{r 16-2-4Intermediate2HK-solution}
+as_datetime(60 * 60 * 24* 25 - 60 * 60)
+```
+
+
+
+### 16.2.4 Challenging HK
+
+
+The below is part of the date-time schedule of the flights. With the existing code and data, visualize the distribution of departure times within 5 days until January 5th, 2013. The frequency should be 1 day:
+
+```{r data16-2-4ChallengingHK}
+make_datetime_100 <- function(year, month, day, time) {
+  make_datetime(year, month, day, time %/% 100, time %% 100)
+}
+
+flights_dt <- flights %>% 
+  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
+  mutate(
+    dep_time = make_datetime_100(year, month, day, dep_time),
+    arr_time = make_datetime_100(year, month, day, arr_time),
+    sched_dep_time = make_datetime_100(year, month, day, sched_dep_time),
+    sched_arr_time = make_datetime_100(year, month, day, sched_arr_time)
+  ) %>% 
+  select(origin, dest, ends_with("delay"), ends_with("time"))
+
+flights_dt
+
+```
+
+```{r 16-2-4ChallengingHK, exercise=TRUE, exercise.eval=TRUE}
+make_datetime_100 <- function(year, month, day, time) {
+  make_datetime(year, month, day, time %/% 100, time %% 100)
+}
+
+flights_dt <- flights %>% 
+  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
+  mutate(
+    dep_time = make_datetime_100(year, month, day, dep_time),
+    arr_time = make_datetime_100(year, month, day, arr_time),
+    sched_dep_time = make_datetime_100(year, month, day, sched_dep_time),
+    sched_arr_time = make_datetime_100(year, month, day, sched_arr_time)
+  ) %>% 
+  select(origin, dest, ends_with("delay"), ends_with("time"))
+
+
+
+```
+
+```{r 16-2-4ChallengingHK-hint}
+flights_dt %>% 
+  filter(dep_time < ymd()) %>% 
+  ggplot(aes(dep_time)) + 
+  geom_freqpoly(binwidth = )
+
+```
+
+```{r 16-2-4ChallengingHK-solution}
+make_datetime_100 <- function(year, month, day, time) {
+  make_datetime(year, month, day, time %/% 100, time %% 100)
+}
+
+flights_dt <- flights %>% 
+  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
+  mutate(
+    dep_time = make_datetime_100(year, month, day, dep_time),
+    arr_time = make_datetime_100(year, month, day, arr_time),
+    sched_dep_time = make_datetime_100(year, month, day, sched_dep_time),
+    sched_arr_time = make_datetime_100(year, month, day, sched_arr_time)
+  ) %>% 
+  select(origin, dest, ends_with("delay"), ends_with("time"))
+
+flights_dt %>% 
+  filter(dep_time < ymd(20130105)) %>% 
+  ggplot(aes(dep_time)) + 
+  geom_freqpoly(binwidth = 86400)
+```
+
+```{r 16-2-4ChallengingHK-check}
+gradethis::grade_this_code()
+```
+
