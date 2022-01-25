@@ -1,0 +1,160 @@
+---
+title: "Tidyverse Tutorial: R4DS Ch 16"
+
+output: 
+  learnr::tutorial:
+    css: css/style.css
+    theme: cerulean
+runtime: shiny_prerendered
+
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(nycflights13)
+library(lubridate)
+```
+
+
+## Section 16.2.4
+
+### 16.2.4 Easy MS 
+
+```{r 16-2-4_Easy_MS_Quiz}
+quiz(
+  question("Choose the function that could help you to get the current date-time:",
+    answer("now()", correct = TRUE),
+    answer("today()"),
+    answer("current()"),
+    answer("rightnow()")
+  )
+)
+```
+
+### 16.2.4 Easy MS
+
+Add a correct function name so that you can get the outcome of 2022-02-22.
+
+```{r 16-2-4_Easy_MS, exercise=TRUE, exercise.eval=TRUE}
+("20222202")
+
+```
+
+```{r 16-2-4_Easy_MS-hint}
+You can choose from ymd(), ydm(), mdy(), myd(), dym(), dmy().
+```
+
+```{r 16-2-4_Easy_MS-solution}
+ydm("20222202")
+
+```
+
+```{r 16-2-4_Easy_MS-check}
+gradethis::grade_this_code()
+```
+
+### 16.2.4 Intermediate MS
+
+Select the column of `carrier`, `flight`, `year`, `month`, `day` and use `make_date()` to create a date. Name the date into `departure`. Then re-order the column of `departure` by a descending order. 
+
+```{r 16-2-4_Intermediate_MS, exercise=TRUE, exercise.eval=TRUE}
+
+
+
+
+```
+
+```{r 16-2-4_Intermediate_MS-hint}
+#Try to fill in all the variables to the blank.
+select(flights, , ,) %>%
+  mutate(departure = ) %>%
+  arrange()
+```
+
+```{r 16-2-4_Intermediate_MS-solution}
+select(flights,carrier,flight,year,month,day) %>%
+  mutate(departure = make_date(year,month,day)) %>%
+  arrange(desc(departure))
+```
+
+```{r 16-2-4_Intermediate_MS-check}
+gradethis::grade_this_code()
+```
+
+### 16.2.4 Intermediate MS
+
+Use transmute to select the column of `carrier`, `flight`, `year`, `month`, `day`, `arr_time` and try to break `arr_time` into `arr_hour` and `arr_min`. `arr time` means the hour of the arrival time and `arr_min` means the minute of the arrival time. Use `make_datetime()` to create a datetime. Name the datetime into `arrival`. Then re-order the column of `arrival` by a rescending order. 
+
+```{r 16-2-4IntermediateMS, exercise=TRUE, exercise.eval=TRUE}
+
+
+
+
+```
+
+```{r 16-2-4IntermediateMS-hint}
+#Try to fill in all the variables to the blank.
+transmute(flights, , , , , , , 
+       arr_hour =   ,
+       arr_min =   ) %>%
+  mutate(   = make_datetime(year, month, day, , )) %>%
+
+  arrange()
+```
+
+```{r 16-2-4IntermediateMS-solution}
+transmute(flights, carrier, flight, year, month, day, arr_time, 
+       arr_hour = arr_time %/% 100,
+       arr_min = arr_time %% 100) %>%
+mutate(arrival = make_datetime(year, month, day, arr_hour, arr_min)) %>%
+arrange(arrival)
+
+```
+
+```{r 16-2-4IntermediateMS-check}
+gradethis::grade_this_code()
+```
+
+### 16.2.4 Challenging MS
+
+Try to understand the command of creating the new function called `make_arrival` and complete the command. Run the command of creating new function at first. Then we are going to analyze the arrival information of the flights with destination to `Atlanta (“ATL”)`. Create a datetime for the arrival time of these flight and name it into `arrival_time`. Select the column of `carrier`, `flight` and `arrival_time`. At last, try to use `ggplot()` and `geom_freqpoly()` to make a plot of `arrival_time`(binwidth = 86400). Colored the flight by `carrier`.
+
+```{r 16-2-4_Challenging_MS, exercise=TRUE, exercise.eval=TRUE}
+
+
+
+
+```
+
+```{r 16-2-4_Challenging_MS-hint}
+#Try to fill in all the variables to the blank and complete the code.
+  <- function(year, month, day, time) {
+  make_   (year, month, day, time       , time       )
+  } 
+#Run the code above at first then complete the code below.
+
+filter(flights, !is.na(dep_time), !is.na(arr_time), dest == " ") 
+  mutate(  = make_arrival(year, month,day,  )) 
+  select(carrier, , arrival_time) 
+ggplot(aes()) 
+  geom_freqpoly()
+```
+
+```{r 16-2-4_Challenging_MS-solution}
+make_arrival <- function(year, month, day, time) {
+  make_datetime(year, month, day, time %/% 100, time %% 100)
+} %>%
+filter(flights, !is.na(dep_time), !is.na(arr_time), dest == "ATL") %>%
+  mutate(arrival_time = make_arrival(year, month,day, arr_time)) %>%
+  select(carrier, flight, arrival_time) %>%
+ggplot(aes(arrival_time, color = carrier)) +
+  geom_freqpoly(binwidth = 86400)
+```
+
+```{r 16-2-4_Challenging_MS-check}
+gradethis::grade_this_code()
+```
