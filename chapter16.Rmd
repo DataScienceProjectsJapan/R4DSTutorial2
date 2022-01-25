@@ -36,8 +36,8 @@ Some questions to verify that you understand the purposes of various base and re
 quiz(
   question("If a year does not have 365 days, how many days should it have?",
     answer("363"),
-    answer("366"),
-    answer("364", correct = TRUE),
+    answer("364"),
+    answer("366", correct = TRUE),
     answer("367")
   )
 )
