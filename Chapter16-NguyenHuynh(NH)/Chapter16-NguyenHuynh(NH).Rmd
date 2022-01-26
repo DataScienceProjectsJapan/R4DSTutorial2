@@ -1,0 +1,150 @@
+---
+title: "Tidyverse Tutorial: R4DS Ch 16"
+output: 
+  learnr::tutorial:
+    css: css/style.css
+    theme: cerulean
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+library(learnr)
+library(gradethis)
+library(tidyverse)
+library(nycflights13)
+library(lubridate)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+```
+
+
+
+## Section 16.1
+
+### 16.1 - Easy (NH)
+
+```{r 16_1Easy_NH}
+quiz (
+  question("Which of the following year is leap year?",
+    answer("2000", correct = TRUE),
+    answer("1900"),
+    answer("1800"),
+    answer("1700")
+  )
+)
+```
+
+### 16.1 - Intermediate (NH)
+
+```{r 16_1Intermediate_NH}
+quiz (
+  question("How to determine a leap year?",
+    answer("A year that is divisible for both 400 and 100", correct = TRUE),
+    answer("A year that is divisible for 4 but not divisible for 100", correct = TRUE),
+    answer("A year that is divisible for 4"),
+    answer("A year that is divisible for both 4 and 100")
+  )
+)
+```
+### 16.1 - Challenge (NH)
+From the hint above, create a function to check leap year.
+
+```{r 16_1Challenge_NH, exercise = TRUE, exercise.eval = FALSE}
+isLeapYear <- function(year) {
+  if() {
+    if() {
+      if() {
+        print("This is a leap year")
+      }
+      else {
+        print("This is not a leap year")
+      }
+    }
+    else {
+      print("This is a leap year")
+    }
+  }
+  else {
+    print("This is not a leap year")
+  }
+}
+
+```
+
+```{r 16_1Challenge_NH-hint}
+"A leap year is a year that is either:
+   1. Divisible for 4 and not divisible for 100
+ or:
+   2. Divisible for both 400 and 100
+"
+```
+
+```{r 16_1Challenge_NH-solution}
+isLeapYear <- function(year) {
+  if((year %% 4) == 0) {
+    if((year %% 100) == 0) {
+      if((year %% 400) == 0) {
+        print("This is a leap year")
+      }
+      else {
+        print("This is not a leap year")
+      }
+    }
+    else {
+      print("This is a leap year")
+    }
+  }
+  else {
+    print("This is not a leap year")
+  }
+}
+
+```
+
+```{r 16_1Challenge_NH-check}
+gradethis::grade_this_code()
+```
+
+
+## Section 16.2.1
+
+### 16.2.1 - Easy
+Write a method to get current date
+
+```{r 16_2_1Easy_NH, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r 16_2_1Easy_NH-solution}
+today()
+```
+
+```{r 16_2_1Easy_NH-check}
+gradethis::grade_this_code()
+```
+
+## Section 16.2.2
+
+### 16.2.2 - Intermediate
+Create a date/time of flight departure from the data of nycflights13
+
+```{r 16_2_2Intermediate_NH, exercise = TRUE, exercise.eval = FALSE}
+flights %>% 
+```
+
+```{r 16_2_2Intermediate_NH-hint}
+flights %>% 
+  select() %>% 
+  mutate(departure = )
+```
+
+```{r 16_2_2Intermediate_NH-solution}
+flights %>% 
+  select(year, month, day, hour, minute) %>% 
+  mutate(departure = make_datetime(year, month, day, hour, minute))
+```
+
+```{r 16_2_2Intermediate_NH-check}
+gradethis::grade_this_code()
+```
