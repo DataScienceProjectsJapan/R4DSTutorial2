@@ -1,0 +1,144 @@
+---
+title: "Tidyverse Tutorial: R4DS Ch 16"
+output: 
+  learnr::tutorial:
+    css: css/style.css
+    theme: cerulean
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(lubridate)
+library(nycflights13)
+```
+
+
+## Dates and Times
+
+### 16.2.4. Easy BQH
+
+Write the R code to get the current date:
+
+```{r 16-2-4EasyBQH, exercise=TRUE, exercise.eval = TRUE}
+
+```
+
+```{r 16-2-4EasyBQH-solution}
+today()
+```
+
+```{r 16-2-4EasyBQH-check}
+gradethis::grade_this_code()
+```
+
+### 16.2.4. Easy BQH
+
+Use the appropriate lubridate function to parse each of the following dates:
+2022-01-26
+January 26th, 2022
+26-Jan-2022
+
+```{r 16-2-4EasyBQH2, exercise=TRUE, exercise.lines = 5}
+
+```
+
+```{r 16-2-4EasyBQH2-solution}
+ymd("2022-01-26")
+mdy("January 26th, 2022")
+dmy("26-Jan-2022")
+```
+
+```{r 16-2-4EasyBQH2-check}
+gradethis::grade_this_code()
+```
+
+### 16.2.4. Intermediate BQH
+
+*In the nycflights data set, the dates of the flights are presented in three columns - year, month, day.*
+
+Write the code to create a column for the departure time data (year, month, date) in date format. Name the column "departure_date".
+
+```{r 16-2-4IntermediateBQH, exercise=TRUE, exercise.eval=TRUE}
+
+```
+
+```{r 16-2-4IntermediateBQH-solution}
+flights %>% 
+  select(year, month, day) %>% 
+  mutate(departure_date = make_date(year, month, day))
+```
+
+```{r 16-2-4IntermediateBQH-hint}
+"Use mutate to add new column and use make_date to turn the data into date format"
+```
+
+```{r 16-2-4IntermediateBQH-check}
+gradethis::grade_this_code()
+```
+
+### 16.2.4. Intermediate BQH
+
+*In the nycflights data set, the dates of the flights are presented in three columns - year, month, day. The fourth column shows the departure time, however the format is quite unusual*
+
+Write the code to create a column for the departure time data (year, month, date, dep_time) in date_time format. Name the column "departure_time".
+
+```{r 16-2-4IntermediateBQH2, exercise=TRUE, exercise.eval=TRUE, exercise.line=10}
+
+```
+
+```{r 16-2-4IntermediateBQH2-hint}
+"Use %/% 100 and %% 100 to get the time in hours and minutes."
+```
+
+```{r 16-2-4IntermediateBQH2-solution}
+make_datetime_100 <- function(year, month, day, time) {
+  make_datetime(year, month, day, time %/% 100, time %% 100)
+}
+flights %>% 
+  mutate(
+    departure_time = make_datetime_100(year, month, day, dep_time))
+```
+
+```{r 16-2-4IntermediateBQH2-check}
+gradethis::grade_this_code()
+```
+
+### 16.2.4. Challenging BQH
+
+*During the day, there are busy times when many flights depart and times when fewer flights depart.*
+
+Make a graph to show the distribution of flight departure time on January 01, 2013 using R code. Use 10 minutes as the frequency.
+
+```{r 16-2-4ChallengingBQH, exercise=TRUE, exercise.eval=TRUE, exercise.line=10}
+
+```
+
+```{r 16-2-4ChallengingBQH-solution}
+make_datetime_100 <- function(year, month, day, time) {
+  make_datetime(year, month, day, time %/% 100, time %% 100)
+}
+
+flights_dt <- flights %>% 
+  mutate(
+    dep_time = make_datetime_100(year, month, day, dep_time))
+
+flights_dt %>% 
+  filter(dep_time < ymd(20130102)) %>% 
+  ggplot(aes(dep_time)) + 
+  geom_freqpoly(binwidth = 600) # 600 s = 10 minutes
+
+```
+
+```{r 16-2-4ChallengingBQH2-hint}
+"Put the departure year, month, day, time data in the date_time format first, then make a graph with the date_time items."
+
+```
+
+```{r 16-2-4ChallengingBQH-check}
+gradethis::grade_this_code()
+```
