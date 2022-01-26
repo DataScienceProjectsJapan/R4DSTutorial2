@@ -89,8 +89,7 @@ gradethis::grade_this_code()
 
 ### 16.2.2 Challenging LW
 
-Create a new function “make_datetime_new” to break the times into hours and minutes. Use modulus arithmetic to pull out the hour and minute components from columns of “dep_time” and “sched_dep_time”. Then select the columns of “tailnum”, “origin”, “dep_time” and “sched_dep_time”, and save your data set to a new date-time variable called “flights_new”.
-Visualize the distribution of scheduled departure time (sched_dep_time) within one week (from January 1, 2013 to January 7, 2013), with a binwidth of 1 hour.
+Create a new function “make_datetime_new” to break the times into hours and minutes. Use modulus arithmetic to pull out the hour and minute components from columns of “dep_time” and “sched_dep_time”. Visualize the distribution of scheduled departure time (sched_dep_time) within one week (from January 1, 2013 to January 7, 2013), with a binwidth of 1 hour.
 
 ```{r 16-2-2ChallengingLW, exercise=TRUE, exercise.eval=TRUE}
 
