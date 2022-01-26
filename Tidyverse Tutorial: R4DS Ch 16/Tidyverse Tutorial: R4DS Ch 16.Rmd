@@ -99,16 +99,13 @@ Visualize the distribution of scheduled departure time (sched_dep_time) within o
 ```{r 16-2-2ChallengingLW-hint}
 make_datetime_new <- function(year, month, day, time) {
   make_datetime(year, month, day, time %/%  , time %%  )
-}%>%
-  
-flights_new <- flights %>% 
-  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
+}
+ 
+  filter(flights,!is.na(dep_time), !is.na(arr_time)) %>% 
   mutate(
     dep_time = make_datetime_new( ),
-    sched_dep_time = make_datetime_new( e)
-  ) %>%
-  select( ) %>%
-  
+    sched_dep_time = make_datetime_new( )
+  )%>%
   filter(sched_dep_time < ymd( )) %>%
   ggplot(aes( )) + 
   geom_freqpoly(binwidth =  ) # 3600 s = 1 hour
@@ -117,16 +114,13 @@ flights_new <- flights %>%
 ```{r 16-2-2ChallengingLW-solution}
 make_datetime_new <- function(year, month, day, time) {
   make_datetime(year, month, day, time %/% 100, time %% 100)
-}%>%
-  
-flights_new <- flights %>% 
-  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
+}
+ 
+  filter(flights,!is.na(dep_time), !is.na(arr_time)) %>% 
   mutate(
     dep_time = make_datetime_new(year, month, day, dep_time),
     sched_dep_time = make_datetime_new(year, month, day, sched_dep_time)
-  ) %>%
-  select(tailnum, origin, dep_time, sched_dep_time) %>%
-  
+  )%>%
   filter(sched_dep_time < ymd(20130107)) %>%
   ggplot(aes(sched_dep_time)) + 
   geom_freqpoly(binwidth = 3600)
