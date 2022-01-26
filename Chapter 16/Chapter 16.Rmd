@@ -1,0 +1,107 @@
+---
+title: "Tidyverse Tutorial: R4DS Ch 16"
+output: 
+  learnr::tutorial:
+    css: css/style.css
+    theme: cerulean
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(lubridate)
+library(nycflights13)
+```
+
+
+###### This tutorial was written by the following students at Ritsumeikan Asia Pacific University in Japan as part of a seminar project under the supervision of Prof. William Claster. To collaborate please contact us.
+
+-Satoshi OTSU (S.O)
+
+
+####### Do as many of the exercises as you like
+## Section 16.2
+
+### 16.2.4 Easy S.O
+
+*After reading the chapter which one of the following was descripe during the introducting of Date and Time.*
+
+Fill in all of the following that was described.
+
+```{r quiz_16_2_4_Easy}
+quiz(
+  question("which of the following was asked at the start of the chapter?",
+    answer("Does every year have 365 days?", correct = TRUE),
+    answer("Does every day have 24 hours?", correct = TRUE),
+    answer("Does every minute have 60 seconds?", correct = TRUE),
+    answer("Does every hour have 60 minutes?")
+  )
+)
+```
+
+### 16.2.4 Easy S.O
+
+*Modify the following code to the current date.*
+
+```{r 1, exercise=TRUE, exercise.eval=TRUE}
+ymd(20220126)
+```
+```{r 1-hint-1}
+"ymd means year, month, and date."
+
+```
+
+### 16.2.4 Intermediate S.O 
+
+```{r Q3-interm-SO}
+flights %>% 
+     select(year, month, day, hour, minute) %>% 
+     mutate(departure = make_datetime(year, month, day, hour, minute))
+```
+
+
+Enter the code that creates the following data.
+
+```{r Q3, exercise=TRUE}
+
+```
+
+```{r Q3-solution}
+flights %>% 
++     select(year, month, day, hour, minute) %>% 
++     mutate(departure = make_datetime(year, month, day, hour, minute))
+```
+
+### 16.2.4 Intermediate S.O 
+
+Question to verify that one has understood how to use codes for date and time.
+
+```{r 2-4interquiz-SO}
+quiz(
+  question("Which of the following is applicable in creating date/time and date-times:",
+    answer("make_date()", correct = TRUE),
+    answer("make_datetime()", correct = TRUE),
+    answer("make_timedate()"),
+    answer("make_time()")
+  )
+)
+```
+
+### 16.2.4 Challenging S.O
+
+*Try making the following answer with the code you learned.*
+
+[1] "1970-01-01 10:00:00 UTC"
+
+```{r Q5, exercise=TRUE}
+
+```
+
+```{r Q5-solution}
+as_datetime(60 * 60 * 10)
+```
+
