@@ -25,7 +25,7 @@ library(lubridate)
 
 ## Chapter 16
 
-### 16.1 Easy NGUYEN 
+### 16.1 Easy HD 
 
 
 *You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
@@ -44,7 +44,7 @@ quiz(
 ```
 
 
-### 16.2.1 Intermediate NGUYEN
+### 16.2.1 Intermediate HD
 
 
 Use the appropriate lubridate function to parse the following date and time
@@ -58,7 +58,7 @@ Use the appropriate lubridate function to parse the following date and time
 ymd_hms("2000-Oct-21 04:00:00")
 ```
 
-### 16.2.1 Intermediate NGUYEN
+### 16.2.1 Intermediate HD
 Add a function to supplying the UTC timezone for ymd(20170131) in order to force the creation of a date-time from a date
 ```{r 16_2_1_1_Intermediate_NGUYEN, exercise=TRUE, exercise.eval=TRUE}
 
@@ -68,7 +68,7 @@ Add a function to supplying the UTC timezone for ymd(20170131) in order to force
 ymd(20170131, tz = "UTC")
 ```
 
-### 16.2.2 Challenging NGUYEN
+### 16.2.2 Challenging HD
 Write the function that outputs the departure date & time of the flights dataset using make_datetime()
 ```{r 16_2_2_Challenging_NGUYEN, exercise=TRUE, exercise.eval=TRUE}
 
@@ -80,7 +80,7 @@ select(year, month, day, hour, minute) %>%
 mutate(departure = make_datetime(year, month, day, hour, minute))
 ```
 
-### 16.2.3 Easy NGUYEN
+### 16.2.3 Easy HD
 Using as_datetime, write the function that outputs "1970-01-01 5:00:00 UTC"
 ```{r 16_2_3_Easy_NGUYEN, exercise=TRUE, exercise.eval=TRUE}
 
