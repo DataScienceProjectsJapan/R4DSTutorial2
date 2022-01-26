@@ -1,0 +1,137 @@
+---
+title: "Tidyverse Tutorial: R4DS Ch 16"
+output: 
+learnr::tutorial:
+css: css/style.css
+theme: cerulean
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(nycflights13)
+library(lubridate)
+```
+
+
+## Section 16.1-16.2.3
+
+### 16.2.1 Easy LW
+
+*Here's a simple exercise with an empty code chunk provided for entering the answer.*
+
+Try to add a timezone information UTC of the date-time object below: 
+"2017-01-31"
+
+```{r 16-2-1EasyLW, exercise=TRUE}
+
+```
+
+```{r 16-2-1EasyLW-hint}
+ymd( ,tz=" ")
+```
+
+### 16.2.1 Easy LW
+
+Use the lubridate function to parse the date “January 26, 2022”:
+
+```{r 16-2-1Easy2LW, exercise=TRUE}
+
+```
+
+```{r 16-2-1Easy2LW-hint}
+mdy(" ")
+```
+
+### 16.2.2 Intermediate LW
+
+Create a date/time from the flights data by using make_date() function, select columns of “talinum”, columns end with “delay”, “year”, “month”, “day”. Put the date into “departure”:
+
+```{r 16-2-2IntermediateLW, exercise=TRUE, exercise.eval=TRUE}
+
+```
+
+```{r 16-2-2IntermediateLW-hint}
+flights %>% 
+     select( , ends_with(" "),  ,  ,  ) %>% 
+     mutate(departure = make_date( ))
+```
+
+```{r 16-2-2IntermediateLW-solution}
+flights %>% 
+     select(tailnum, ends_with("time"), year, month, day) %>% 
+     mutate(departure = make_date(year, month, day))
+```
+
+```{r 16-2-2IntermediateLW-check}
+gradethis::grade_this_code()
+```
+
+### 16.2.3 Intermediate LW
+
+Let’s get date/times as numeric offsets from the “Unix Epoch”, 1970-01-01. Use as_datetime() to get "1970-01-02 01:00:00 UTC"
+
+```{r 16-2-3IntermediateLW, exercise=TRUE, exercise.eval=TRUE}
+
+```
+
+```{r 16-2-3IntermediateLW-solution}
+as_datetime(60 * 60 * 25)
+```
+
+```{r 16-2-3IntermediateLW-check}
+gradethis::grade_this_code()
+```
+
+### 16.2.2 Challenging LW
+
+Create a new function “make_datetime_new” to break the times into hours and minutes. Use modulus arithmetic to pull out the hour and minute components from columns of “dep_time” and “sched_dep_time”. Then select the columns of “tailnum”, “origin”, “dep_time” and “sched_dep_time”, and save your data set to a new date-time variable called “flights_new”.
+Visualize the distribution of scheduled departure time (sched_dep_time) within one week (from January 1, 2013 to January 7, 2013), with a binwidth of 1 hour.
+
+```{r 16-2-2ChallengingLW, exercise=TRUE, exercise.eval=TRUE}
+
+```
+
+```{r 16-2-2ChallengingLW-hint}
+make_datetime_new <- function(year, month, day, time) {
+  make_datetime(year, month, day, time %/%  , time %%  )
+}%>%
+  
+flights_new <- flights %>% 
+  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
+  mutate(
+    dep_time = make_datetime_new( ),
+    sched_dep_time = make_datetime_new( e)
+  ) %>%
+  select( ) %>%
+  
+  filter(sched_dep_time < ymd( )) %>%
+  ggplot(aes( )) + 
+  geom_freqpoly(binwidth =  ) # 3600 s = 1 hour
+```
+
+```{r 16-2-2ChallengingLW-solution}
+make_datetime_new <- function(year, month, day, time) {
+  make_datetime(year, month, day, time %/% 100, time %% 100)
+}%>%
+  
+flights_new <- flights %>% 
+  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
+  mutate(
+    dep_time = make_datetime_new(year, month, day, dep_time),
+    sched_dep_time = make_datetime_new(year, month, day, sched_dep_time)
+  ) %>%
+  select(tailnum, origin, dep_time, sched_dep_time) %>%
+  
+  filter(sched_dep_time < ymd(20130107)) %>%
+  ggplot(aes(sched_dep_time)) + 
+  geom_freqpoly(binwidth = 3600)
+```
+
+```{r 16-2-2ChallengingLW-check}
+gradethis::grade_this_code()
+```
