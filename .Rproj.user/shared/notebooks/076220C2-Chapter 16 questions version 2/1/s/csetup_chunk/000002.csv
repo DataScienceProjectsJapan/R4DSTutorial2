@@ -1,0 +1,23 @@
+"0",""
+"0","library(learnr)"
+"0",""
+"0","library(gradethis)"
+"0",""
+"0","tutorial_options(exercise.checker = gradethis::grade_learnr)"
+"0",""
+"0","knitr::opts_chunk$set(echo = FALSE)"
+"0",""
+"0","library(tidyverse)"
+"0",""
+"0","library(lubridate)"
+"2","
+Attaching package: ‘lubridate’
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+"
+"0","library(nycflights13)"
+"0",""
