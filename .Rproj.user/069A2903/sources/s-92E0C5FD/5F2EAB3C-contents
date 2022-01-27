@@ -49,8 +49,10 @@ quiz(
 quiz(
   question("How can we output \"2022-01-20\" ? (multiple answers)",
     answer("ymd(20220120)", correct = TRUE),
+    answer("as_datetime(60 * 60 * 10)"),
     answer("ymd(\"2022-01-20\")", correct = TRUE),
     answer("mdy(\"January 20th, 2022\"))", correct = TRUE),
+    answer("as_date(365 * 10 + 2)"),
     answer("dmy(\"20-Jan-2022\"))", correct = TRUE)
   )
 )
@@ -82,7 +84,7 @@ make_datetime(year, month, day)
 
 ```{r 16-1Intermediate-solution}
 flights %>% 
-  select(year, month, day, hour) %>% 
+  select(year, month, day) %>% 
   mutate(date = make_datetime(year, month, day))
 ```
 
@@ -96,7 +98,8 @@ gradethis::grade_this_code()
 What function do we use to parse only year (2022) from data "2022-01-20 12:34:56" ?"
 
 ```{r 16-1Intermediate2, exercise=TRUE, exercise.lines = 3, exercise.eval=FALSE}
-write a function...
+#write a function ...
+# using year() function
 ```
 
 ```{r 16-1Intermediate2-hint}
@@ -115,7 +118,7 @@ gradethis::grade_this_code()
 ### 16.2.4 Challenging 12216101 KIM
 
 Extract data from data 'flights' where destination is 'SFO' (San Fransisco) in April.
-Save is as 'sfo_April_flights'
+Save the data as 'sfo_April_flights'
 
 And plot the distribution of arrival delays (arr_delay) of San Fransisco April flights, in histogram.
 
@@ -144,4 +147,124 @@ qplot(x = arr_delay, data = sfo_April_flights, geom = "histogram")
 gradethis::grade_this_code()
 ```
 
-## Chapter 16 questions revised (WIP)
+## Chapter 16 questions version 2 (Revised after receiving feedbacks)
+
+*This chapter will focus on the lubridate package, which makes it easier to work with dates and times in R.*
+
+### 16.1 Easy KIM
+
+
+```{r 16-1Easy-rev-quiz1}
+quiz(
+  question("What time series will be the output of today() ?",
+    answer("DD-MM-YYYY"),
+    answer("MM-DD-YYYY"),
+    answer("YYYY-MM-DD", correct = TRUE)
+  )
+)
+```
+
+### 16.2.1 Easy KIM
+
+```{r 16-1Easy-rev-quiz2}
+quiz(
+  question("How can we output \"2022-01-20\" ? (multiple answers)",
+    answer("ymd(20220120)", correct = TRUE),
+    answer("as_datetime(60 * 60 * 10)"),
+    answer("ymd(\"2022-01-20\")", correct = TRUE),
+    answer("mdy(\"January 20th, 2022\"))", correct = TRUE),
+    answer("as_date(365 * 10 + 2)"),
+    answer("dmy(\"20-Jan-2022\"))", correct = TRUE)
+  )
+)
+```
+
+### 16.2.2 Intermediate KIM
+
+Init code below to see flights data
+
+```{r 16-1preface-rev, exercise=TRUE, exercise.lines = 3}
+flights %>% 
+  select(year, month, day, hour)
+```
+
+
+Now write a function that adds date in YYYY-MM-DD format in flights date, using 'mutate' function.
+
+Name the vector as 'date'
+
+```{r 16-1Intermediate-rev, exercise=TRUE, exercise.lines = 5, exercise.eval=FALSE}
+flights %>% 
+  select(year, month, day) %>% 
+  mutate(date = )
+```
+
+```{r 16-1Intermediate-rev-hint}
+make_datetime(year, month, day)
+```
+
+```{r 16-1Intermediate-rev-solution}
+flights %>% 
+  select(year, month, day) %>% 
+  mutate(date = make_datetime(year, month, day))
+```
+
+```{r 16-1Intermediate-rev-check}
+gradethis::grade_this_code()
+```
+
+
+### 16.2.3 Intermediate KIM
+
+What function do we use to parse only year (2022) from data "2022-01-20 12:34:56" ?"
+
+```{r 16-1Intermediate2-rev, exercise=TRUE, exercise.lines = 3, exercise.eval=FALSE}
+#write a function ...
+# using year() function
+```
+
+```{r 16-1Intermediate2-rev-hint}
+year()
+```
+
+```{r 16-1Intermediate2-rev-solution}
+year("2022-01-20 12:34:56")
+```
+
+```{r 16-1Intermediate2-rev-check}
+gradethis::grade_this_code()
+```
+
+
+### 16.2.4 Challenging KIM
+
+Extract data from data 'flights' where destination is 'SFO' (San Fransisco) in April.
+Save the data as 'sfo_April_flights'
+
+And plot the distribution of arrival delays (arr_delay) of San Fransisco April flights, in histogram.
+
+```{r 16-1Challenging-rev, exercise=TRUE, exercise.lines = 8, exercise.eval=FALSE}
+sfo_April_flights <- flights %>%
+  filter()
+
+qplot()
+```
+
+```{r 16-1Challenging-rev-hint}
+sfo_April_flights <- flights %>%
+  filter(dest == "", month == )
+
+qplot(x = , data = , geom = "")
+```
+
+```{r 16-1Challenging-rev-solution}
+sfo_April_flights <- flights %>%
+  filter(dest == "SFO", month == 4)
+
+qplot(x = arr_delay, data = sfo_April_flights, geom = "histogram")
+```
+
+```{r 16-1Challenging-rev-check}
+gradethis::grade_this_code()
+```
+
