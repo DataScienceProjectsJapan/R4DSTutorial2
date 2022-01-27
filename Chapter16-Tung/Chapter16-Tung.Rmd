@@ -14,7 +14,7 @@ library(gradethis)
 
 tutorial_options(exercise.checker = gradethis::grade_learnr)
 
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 
 library(tidyverse)
 
@@ -83,22 +83,22 @@ gradethis::grade_this_code()
 
 ### 16.2.2 Challenging TD
 
-From the `flightsDateTime` dataset created above, plot a graph to find out which timeframe has the largest number of departure flight on January 3rd, 2013. Use `geom_freqpoly` with `binwith` of 900 (15 minutes). (you can use `?geom_freqpoly` to find out how to use the function)
+From the `flightsDateTime` dataset created above (you need to copy the code created above to this code block), plot a graph to find out which timeframe has the largest number of departure flight on January 3rd, 2013. Use `geom_freqpoly` with `binwith` of 600 (10 minutes). (you can use `?geom_freqpoly` to find out how to use the function)
 
 ```{r 16-2-2IntermediateTD2, exercise=TRUE, exercise.eval=FALSE}
-
+flightsDateTime <- #insert the code in the previous section here
 ```
 
 ```{r 16-2-2IntermediateTD2-hint}
 "geom_freqpoly(binwidth = 900)"
 ```
 
-```{r 16-2-2IntermediateTD2-solution}
-
+```{r 16-2-2IntermediateTD2-solution, warning=FALSE}
+flightsDateTime <- mutate(flights, depart_date = make_date(year, month, day))
 flightsDateTime %>% 
-  filter(depart_date < ymd(2013-01-03)) %>% 
+  filter(depart_date == ymd("2013-01-03")) %>% 
   ggplot(aes(dep_time)) + 
-  geom_freqpoly(binwidth = 900)
+  geom_freqpoly(binwidth = 600)
 ```
 
 ```{r 16-2-2IntermediateTD2-check}
@@ -109,7 +109,7 @@ gradethis::grade_this_code()
 
 ### 16.2.3 Intermediate TD
 
-Write a function named numToDate that takes an integer representing the number of days from the Unix Epoch Time, and return the date represented by that number.
+Write a function named numToDate that takes an integer representing the number of days from the Unix Epoch Time, and print out and return the date represented by that number.
 
 ```{r 16-2-3IntermedateTD, exercise=TRUE, exercise.eval=FALSE}
 numToDate <- function() {
@@ -125,8 +125,10 @@ numToDate(23456)
 ```{r 16-2-3IntermedateTD-solution}
 numToDate <- function(num) {
   date <- as_date(num)
+  print(date)
   return(date)
 }
+numToDate(23456)
 ```
 
 ```{r 16-2-3IntermedateTD-check}
