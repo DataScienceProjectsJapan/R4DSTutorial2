@@ -61,10 +61,11 @@ gradethis::grade_this_code()
 
 *In the nycflights data set, the dates of the flights are presented in three columns - year, month, day.*
 
-Write the code to create a column for the departure time data (year, month, date) in date format. Name the column "departure_date".
+Write the code to create a column for the combination of these three data (year, month, day) in date format accepted by R. Name the column "departure_date".
 
 ```{r 16-2-4IntermediateBQH, exercise=TRUE, exercise.eval=TRUE}
-
+flights %>% 
+  select()
 ```
 
 ```{r 16-2-4IntermediateBQH-solution}
@@ -85,14 +86,20 @@ gradethis::grade_this_code()
 
 *In the nycflights data set, the dates of the flights are presented in three columns - year, month, day. The fourth column shows the departure time, however the format is quite unusual*
 
-Write the code to create a column for the departure time data (year, month, date, dep_time) in date_time format. Name the column "departure_time".
+Write the code to turn the time data into time format accepted by R, then create a column for the departure time data (year, month, date, dep_time) in date_time format. Name the column "departure_time".
 
 ```{r 16-2-4IntermediateBQH2, exercise=TRUE, exercise.eval=TRUE, exercise.line=10}
-
+make_datetime_100 <- function() {
+  
+}
+  
 ```
 
 ```{r 16-2-4IntermediateBQH2-hint}
-"Use %/% 100 and %% 100 to get the time in hours and minutes."
+"Use %/% 100 and %% 100 to get the time in hours and minutes.
+To add column use mutate.
+flights %>% 
+  mutate()"
 ```
 
 ```{r 16-2-4IntermediateBQH2-solution}
@@ -112,10 +119,24 @@ gradethis::grade_this_code()
 
 *During the day, there are busy times when many flights depart and times when fewer flights depart.*
 
-Make a graph to show the distribution of flight departure time on January 01, 2013 using R code. Use 10 minutes as the frequency.
+Make a graph to show the distribution of flight departure time on January 01, 2013 using R code. Use 5 minutes as the frequency.
 
 ```{r 16-2-4ChallengingBQH, exercise=TRUE, exercise.eval=TRUE, exercise.line=10}
 
+```
+
+```{r 16-2-4ChallengingBQH2-hint}
+"Put the departure year, month, day, time data in the date_time format first, then make a graph with the date_time items.
+
+make_datetime_100 <- function()
+flights_dt <- flights %>% 
+  mutate()
+flights_dt %>% 
+  filter()
+  ggplot() + 
+  geom_freqpoly(binwidth = ) 
+binwidth determines the frequency in second (e.g. 10 minutes mean binwidth = 600)
+"
 ```
 
 ```{r 16-2-4ChallengingBQH-solution}
@@ -130,14 +151,11 @@ flights_dt <- flights %>%
 flights_dt %>% 
   filter(dep_time < ymd(20130102)) %>% 
   ggplot(aes(dep_time)) + 
-  geom_freqpoly(binwidth = 600) # 600 s = 10 minutes
+  geom_freqpoly(binwidth = 300) 
 
 ```
 
-```{r 16-2-4ChallengingBQH2-hint}
-"Put the departure year, month, day, time data in the date_time format first, then make a graph with the date_time items."
 
-```
 
 ```{r 16-2-4ChallengingBQH-check}
 gradethis::grade_this_code()
