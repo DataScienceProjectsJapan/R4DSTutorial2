@@ -112,7 +112,7 @@ if (window.hljs) {
 <h2>Section 16.2</h2>
 <div id="section-challenging-hvh" class="section level3">
 <h3>16.2 Challenging HVH</h3>
-Write the R code that recognizes 2000:08:31 as a date.
+Write the R code that recognizes 2000:08:31 as a date using the as.POSIXct. Note: as.POSIXct allows you to customize a format for your date by setting the argument format =
 <div class="tutorial-exercise" data-label="16-2ChallengingHVH" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>as.POSIXct()</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -121,7 +121,7 @@ Write the R code that recognizes 2000:08:31 as a date.
 <pre class="text"><code>as.POSIXct(strptime())</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="16-2ChallengingHVH-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>as.POSIXct(strptime(&quot;2000:08:31&quot;, format = &quot;%Y-%m-%d&quot;))</code></pre>
+<pre class="text"><code>as.POSIXct(strptime(&quot;2000:08:31&quot;, format = &quot;%Y:%m:%d&quot;))</code></pre>
 </div>
 </div>
 </div>
@@ -138,13 +138,13 @@ Write the R code that recognizes 2000:08:31 as a date.
 <script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
 </div>
-Write the R code to transform “August 31st, 2000” into date.
+Write the R code to get the current date time.
 <div class="tutorial-exercise" data-label="16-2-1Easy2HVH" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<pre><code>## [1] &quot;use the mdy() function&quot;</code></pre>
+<pre><code>## [1] &quot;use the now() function&quot;</code></pre>
 <div class="tutorial-exercise-support" data-label="16-2-1Easy2HVH-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>mdy(&quot;August 31st, 2000&quot;)</code></pre>
+<pre class="text"><code>now()</code></pre>
 </div>
 </div>
 </div>
@@ -247,7 +247,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("", "lib
         opts = list(label = "\"16-2ChallengingHVH\"", exercise = "TRUE"), 
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = structure("gradethis::grade_this_code()", chunk_opts = list(
-        label = "16-2ChallengingHVH-check")), solution = structure("as.POSIXct(strptime(\"2000:08:31\", format = \"%Y-%m-%d\"))", chunk_opts = list(
+        label = "16-2ChallengingHVH-check")), solution = structure("as.POSIXct(strptime(\"2000:08:31\", format = \"%Y:%m:%d\"))", chunk_opts = list(
         label = "16-2ChallengingHVH-solution")), options = list(
         eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
         tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
@@ -274,17 +274,17 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("", "lib
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "16-2-1Easy1HVH-1", 
     question = structure("Which strings can be transformed to date using ymd()?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_d362431", 
+    "character")), answers = list(structure(list(id = "lnr_ans_4127ffa", 
         option = "August 31st, 2000", value = "August 31st, 2000", 
         label = structure("August 31st, 2000", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_25357d1", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f3b319e", 
         option = "2000/08/31", value = "2000/08/31", label = structure("2000/08/31", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c87e09e", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_26ec385", 
         option = "2000:08:31", value = "2000:08:31", label = structure("2000:08:31", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_97ee857", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_bb702a6", 
         option = "20000831", value = "20000831", label = structure("20000831", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -296,7 +296,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "16-2-1Easy1HVH-1-answer", question = "16-2-1Easy1HVH-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich strings can be transformed to date using ymd()?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = FALSE, 
-    seed = 1647930193.73262, options = list()), class = c("learnr_checkbox", 
+    seed = 884027449.588343, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -316,7 +316,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("", "lib
     list(label = "16-2-1Easy2HVH", code = "", opts = list(label = "\"16-2-1Easy2HVH\"", 
         exercise = "TRUE"), engine = "r")), code_check = NULL, 
     error_check = NULL, check = structure("gradethis::grade_this_code()", chunk_opts = list(
-        label = "16-2-1Easy2HVH-check")), solution = structure("mdy(\"August 31st, 2000\")", chunk_opts = list(
+        label = "16-2-1Easy2HVH-check")), solution = structure("now()", chunk_opts = list(
         label = "16-2-1Easy2HVH-solution")), options = list(eval = FALSE, 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
         collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 

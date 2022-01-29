@@ -31,7 +31,8 @@ library(nycflights13)
 ```
 ## Section 16.2
 ### 16.2 Challenging HVH
-Write the R code that recognizes 2000:08:31 as a date.
+Write the R code that recognizes 2000:08:31 as a date using the as.POSIXct.
+Note: as.POSIXct allows you to customize a format for your date by setting the argument format =
 ```{r 16-2ChallengingHVH, exercise=TRUE}
 as.POSIXct()
 ```
@@ -58,16 +59,17 @@ quiz(
   )
 )
 ```
-Write the R code to transform "August 31st, 2000" into date.
+Write the R code to get the current date time.
 ```{r 16-2-1Easy2HVH, exercise=TRUE}
 
 ```
+
 ```{r Easy2HVH-hint}
-"use the mdy() function"
+"use the now() function"
 ```
 
 ```{r 16-2-1Easy2HVH-solution}
-mdy("August 31st, 2000")
+now()
 ```
 
 ```{r 16-2-1Easy2HVH-check}
@@ -79,6 +81,7 @@ Add a column to the flights data set, named departure_time, which contains the i
 ```{r 16-2-2Intermediate1HVH, exercise=TRUE, exercise.eval=TRUE}
 
 ```
+
 ```{r 16-2-2Intermediate1HVH-hint}
 "use the mutate() and make_datetime() functions"
 ```
