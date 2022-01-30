@@ -1,0 +1,121 @@
+---
+title: "Tidyverse Tutorial: R4DS Ch 16"
+output: 
+  learnr::tutorial:
+    css: css/style.css
+    theme: cerulean
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(lubridate)
+library(nycflights13)
+```
+
+
+###### This tutorial was written by the following students at Ritsumeikan Asia Pacific University in Japan as part of a seminar project under the supervision of Prof. William Claster. To collaborate please contact us.
+
+-Satoshi OTSU (S.O)
+
+
+####### Do as many of the exercises as you like
+## Section 16
+
+### 16.1 Easy S.O
+
+*After reading the chapter please answer the following question.*
+
+Fill in the correct answer
+
+```{r quiz_16_1_Easy}
+quiz(
+  question("In every year there are 365 days.",
+    answer("True"),
+    answer("False", correct = TRUE)
+  )
+)
+```
+
+### 16.2.1 Easy SO
+
+*Modify the following code to the date of 2022 of March the 2nd.*
+
+```{r 16-2-1EasySO, exercise=TRUE, exercise.eval=TRUE}
+ymd(20220126)
+```
+
+```{r 16-2-1EasySO-hint}
+ymd stands for year, month, and date. 
+```
+
+```{r 16-2-1EasySO-solution}
+ymd(20220302)
+```
+
+
+### 16.2.2 Intermediate S.O 
+
+
+```{r 16-2-2GraphSO}
+flights %>% 
+     select(year, month, day, hour, minute) %>% 
+     mutate(departure = make_datetime(year, month, day, hour, minute))
+```
+
+
+Enter the code that creates the following data including the pipe operator.
+
+```{r 16-2-2intermediateSO, exercise=TRUE}
+  
+```
+
+```{r 16-2-2intermediateSO-hint}
+The pipe operator will look like this when written 
+flights %>% 
+     select() %>% 
+
+```
+
+
+```{r 16-2-2intermediateSO-solution}
+flights %>% 
+     select(year, month, day, hour, minute) %>% 
+     mutate(departure = make_datetime(year, month, day, hour, minute))
+```
+
+### 16.2.3 Intermediate S.O 
+
+Question to verify that one has understood how to use codes for date and time.
+
+```{r 16-2-3intermediatequizSO}
+quiz(
+  question("Which of the following is applicable in creating date/time and date-times:",
+    answer("make_date()", correct = TRUE),
+    answer("make_datetime()", correct = TRUE),
+    answer("make_timedate()"),
+    answer("make_time()")
+  )
+)
+```
+
+### 16.2.4 Challenging S.O
+
+*How do we get date/times as numeric offsets from the “Unix Epoch”, 1970-01-01. If the offset is in seconds?*
+
+```{r 16-2-4ChallengingSO, exercise=TRUE}
+
+```
+
+```{r 16-2-4ChallengingSO-hint}
+as_datetime(60 * __ * __)
+```
+
+```{r 16-2-4ChallengingSO-solution}
+as_datetime(60 * 60 * 10)
+```
+
