@@ -1,24 +1,29 @@
 ---
 title: "Tidyverse Tutorial: R4DS Ch 16"
-output: learnr::tutorial
+output: 
+  learnr::tutorial:
+    css: css/style.css
+    theme: cerulean
 runtime: shiny_prerendered
-theme: cerulean
-style: css/style.css
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
 knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(lubridate)
+library(nycflights13)
 ```
-
 
 ## Tidyverse Tutorial: R4DS Ch 16
 
-### Easy 16.1.1 OT
+### 16.1.1 Easy OT
 
-```{r quiz1}
+```{r Easy-OT1}
 quiz(
-  question("What are the packages you need to run this tutorial?",
+  question("What are the packages you need for Chapter 16? (There are multiple answers)",
     answer("tidyverse", correct = TRUE),
     answer("learnr"),
     answer("nycflights13", correct = TRUE),
@@ -27,91 +32,138 @@ quiz(
 )
 ```
 
-### Easy 16.2.1 OT
+### 16.2.1 Easy OT
 
-Refer to flights data set. Filter the data to show only the flights in January
-
-```{r filter-jan, exercise=TRUE}
-flights %>% 
-  filter()
+```{r Easy-OT2}
+quiz(
+  question("How can we output yesterday's date?",
+    answer("today-1()"),
+    answer("today()-1", correct = TRUE),
+    answer("yesterday()")
+  )
+)
 ```
 
 
 ### Intermediate 16.2.2 OT
 
-Make a new column that says the name of the month instead of the number:
+Make a new column that says the abbreviation of the month instead of the number (e,g: Jan instead of 1):
 
-```{r mutate-month, exercise=TRUE}
-flights %>% 
+```{r Intermediate-OT1, exercise=TRUE}
+flights %>%
+  select(month) %>%
   mutate(month_name = )
+```
+```{r Intermediate-OT1-Hint}
+# month(month, label=TRUE)
+```
+```{r Intermediate-OT1-Solution}
+flights %>%
+  select(month) %>%
+  mutate(month_name = month(month, label=TRUE))
+```
+```{r Intermediate-OT1-check}
+gradethis::grade_this_code()
 ```
 
 ### Intermediate 16.2.3 OT
 
-Count how many flights per year and month
+Make three new columns to the flights data set which contains the date_time of departure and arrival time, and the differences between them. (Use difftime())
 
-```{r count-flights, exercise=TRUE}
+```{r Intermediate-OT2, exercise=TRUE}
 flights %>%
-  group_by() %>%
-  summarise(count = )
+  mutate(departure_time = make_datetime(),
+         arrival_time = make_datetime(),
+         diff_time = )
+```
+```{r Intermediate-OT2-Hint}
+flights %>%
+  mutate(departure_time = make_datetime(year, 
+                                        month, 
+                                        day, 
+                                        dep_time %/% 100, 
+                                        dep_time %% 100),
+         arrival_time = make_datetime(year, 
+                                      month, 
+                                      day, 
+                                      arr_time %/% 100, 
+                                      arr_time %% 100),
+         diff_time = difftime(arrival_time, departure_time))
+```
+```{r Intermediate-OT2-Solution}
+flights %>%
+  mutate(departure_time = make_datetime(year, 
+                                        month, 
+                                        day, 
+                                        dep_time %/% 100, 
+                                        dep_time %% 100),
+         arrival_time = make_datetime(year, 
+                                      month, 
+                                      day, 
+                                      arr_time %/% 100, 
+                                      arr_time %% 100),
+         diff_time = difftime(arrival_time, departure_time))
+```
+```{r Intermediate-OT2-check}
+gradethis::grade_this_code()
 ```
 
 ### Challenging 16.2.4 OT
 
-Arrange the flight's distance from the origin to the destination from the furthest to the closest
+Plot a grouped bar chart of top 5 origin_dest by the number of flights of each year_month in a grouped bar chart as such:
 
-```{r distance-flights, exercise=TRUE}
-flights %>%
 
+```{r Challenging-OT, exercise=TRUE}
+flights_grouped <- flights %>%
+  mutate(month = month(),
+         year_month = paste(year, "-", month),
+         origin_dest = paste(origin, "-", dest)) %>%
+  group_by() %>%
+  summarise(count = n()) 
+
+flights_grouped %>%
+  arrange(desc()) %>%
+  group_by() %>% 
+  slice(1:5) %>%
+  ggplot(aes()) + 
+  geom_bar(position="dodge", stat="identity")
 ```
-### Exercise with Code
+```{r Challenging-OT-Hint}
+# Change the month number into abbreviation of the month (e,g: 1 to Jan).
+flights_grouped <- flights %>%
+  mutate(month = month(month, label=TRUE),
+         # Concatenate the year and month with '-' as the separator.
+         year_month = paste(year, "-", month),
+         # Concatenate the origin and destination with '-' as the separator.
+         origin_dest = paste(origin, "-", dest)) %>%
+  # Group the data by the concatenated columns.
+  group_by(year_month, origin_dest) %>%
+  # Summarise the grouped data by the number of the flights.
+  summarise(count = n()) 
 
-*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
-
-Now write a function that adds any two numbers and then call it:
-
-```{r add-function, exercise=TRUE, exercise.lines = 5}
-add <- function() {
-  
-}
+# Plot the top 5 origin_dest by the number of flights of each year_month in a grouped bar chart.
+flights_grouped %>%
+  arrange(desc(count)) %>%
+  group_by(year_month) %>% 
+  slice(1:5) %>%
+  ggplot(aes(x = year_month, y = count, fill = origin_dest)) + 
+  geom_bar(position="dodge", stat="identity")
 ```
+```{r Challenging-OT-Solution}
+flights_grouped <- flights %>%
+  mutate(month = month(month, label=TRUE),
+         year_month = paste(year, "-", month),
+         origin_dest = paste(origin, "-", dest)) %>%
+  group_by(year_month, origin_dest) %>%
+  summarise(count = n()) 
 
-## Topic 2
-
-### Exercise with Hint
-
-*Here's an exercise where the chunk is pre-evaulated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
-
-Modify the following code to limit the number of rows printed to 5:
-
-```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
-mtcars
+flights_grouped %>%
+  arrange(desc(count)) %>%
+  group_by(year_month) %>% 
+  slice(1:5) %>%
+  ggplot(aes(x = year_month, y = count, fill=origin_dest)) + 
+  geom_bar(position="dodge", stat="identity")
 ```
-
-```{r print-limit-hint}
-head(mtcars)
+```{r Challenging-OT-check}
+gradethis::grade_this_code()
 ```
-
-### Quiz
-
-*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
-
-Some questions to verify that you understand the purposes of various base and recommended R packages:
-
-```{r quiz}
-quiz(
-  question("Which package contains functions for installing other R packages?",
-    answer("base"),
-    answer("tools"),
-    answer("utils", correct = TRUE),
-    answer("codetools")
-  ),
-  question("Which of the R packages listed below are used to create plots?",
-    answer("lattice", correct = TRUE),
-    answer("tools"),
-    answer("stats"),
-    answer("grid", correct = TRUE)
-  )
-)
-```
-
