@@ -59,7 +59,7 @@ ymd_hms("2000-Oct-21 04:00:00")
 ```
 
 ### 16.2.1 Intermediate HD
-Add a function to supplying the UTC timezone for ymd(20170131) in order to force the creation of a date-time from a date
+Add a function to supply the UTC timezone for ymd(20170131) in order to force the creation of a date-time from a date
 ```{r 16_2_1_1_Intermediate_NGUYEN, exercise=TRUE, exercise.eval=TRUE}
 
 ```
